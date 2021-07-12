@@ -1,18 +1,19 @@
 # Shorten a fastq file i.e. 150 read length to our normal 76
                                                                                                                 
 use warnings;
+use Getopt::Long;
+ 
+GetOptions (   
+	    "Input=s" => \$Input,
+		"LengthMake=i" => \$LengthMake
+    )   
+ or die("usage: All Arguments in this order are needed: -Input is the input fastq file  && -LengthMake is the number of base pairs to trim to\n");
 
-$Input = $ARGV[0];
-$OutputName = $ARGV[1];
-$LengthMake = $ARGV[2]; 
-
-if (!($ARGV[0] && $ARGV[1] && $ARGV[2])){
-    die "usage: All Arguments in this order are needed: Argument 0 is the input fastq file && Argument 1 is the desired trimmed output fastq file name && Argument 2 is the number of base pairs to trim to\n";
-}
 
 open($fastafileR1, $Input);
-open($outputR1,'>',$OutputName);
 
+$AutoNameGen = substr($Input,0,-6)."-Trimed-".$LengthMake.".fastq";
+open($outputR1,'>',$AutoNameGen);
 
 while ($header = <$fastafileR1>)
 {

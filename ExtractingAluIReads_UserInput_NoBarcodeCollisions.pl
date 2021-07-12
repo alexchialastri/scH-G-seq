@@ -6,12 +6,11 @@ use Getopt::Long;
 GetOptions (   
 	    "FASTQ_R1=s" => \$FASTQ_R1,
 		"ALUI_BC=s" => \$AluIBCpath,
-		"scTHseq=i" => \$scTHseq,
 		"ABASI_BC=s" => \$ABASIBCpath
     )   
- or die("Error in command line arguments\n usage: All Arguments in this order are needed: --FASTQ_R1 is the input name of your input R1 fastq file && ALUI_BC is the file path to the AluI (or MspJI) barcodes && --scTHseq is a true (1) flase (0) interger to search for barcode collisions between AluI (or MSPJI) and ABASI sequencing && ABASI_BC is the file path to the ABASI barcodes )\n");
+ or die("Error in command line arguments\n usage: All Arguments in this order are needed: --FASTQ_R1 is the input name of your input R1 fastq file && ALUI_BC is the file path to the AluI (or MspJI) barcodes && ABASI_BC is the file path to the ABASI barcodes )\n");
  
- 
+$scTHseq = 1;
 open($fastafileR1, "$FASTQ_R1");
 
 my $outputR1In = substr($FASTQ_R1,0,-6)."-AluI.fastq";
